@@ -17,7 +17,7 @@ async def hello_world(request):
 
 
 @app.get("/card")
-async def car(request):
+async def card(request):
     """
     cardinality
     :param request: x, variable to return cardinality
