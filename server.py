@@ -16,6 +16,14 @@ async def hello_world(request):
     return json({"Hello": "world."})
 
 
+@app.get('/columns')
+async def columns(request):
+    """
+    available columns
+    :return: [col_1, col_2, ..., col_n]
+    """
+    return json(DATA.columns.values.tolist())
+
 @app.get("/card")
 async def card(request):
     """
