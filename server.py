@@ -2,13 +2,14 @@ import numpy as np
 import pandas as pd
 from sanic import Sanic
 from sanic.response import json
+from sanic_cors import CORS, cross_origin
 
 DATA = pd.read_parquet('data/ipums_full_count_nyc_census_coded_20210801.parquet')
 DATA['SINCEIMMIG'] = DATA['YEAR'] - DATA['YRIMMIG']
 DATA['AGEIMMIG'] = DATA['AGE'] + DATA['YEAR'] - DATA['YRIMMIG']
 
 app = Sanic("HRLInteractivePortal")
-
+CORS(app)
 
 @app.get("/")
 async def hello_world(request):
