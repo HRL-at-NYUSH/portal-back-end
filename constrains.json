@@ -1,0 +1,282 @@
+{
+    "variables": {
+        "bar": [
+            "SEX",
+            "RACE",
+            "HISPAN",
+            "AGE",
+            "MARST",
+            "FAMSIZE",
+            "BPL",
+            "MBPL",
+            "FBPL",
+            "NATIVITY",
+            "CITIZEN",
+            "SINCEIMMIG",
+            "AGEIMMIG",
+            "LIT",
+            "SCHOOL",
+            "OCC1950",
+            "IND1950",
+            "LABFORCE",
+            "EMPSTAT"
+        ],
+        "histogram": [
+            "SINCEIMMIG",
+            "EDSCOR50",
+            "OCCSCORE",
+            "PRESGL",
+            "INCWAGE"
+        ],
+        "boxplot": [
+            "AGE",
+            "RELATE",
+            "FAMSIZE",
+            "SINCEIMMIG",
+            "AGEIMMIG",
+            "EDSCOR50",
+            "OCCSCORE",
+            "PRESGL",
+            "INCWAGE"
+        ],
+        "scatterplot": [
+            "AGE",
+            "FAMSIZE",
+            "SINCEIMMIG",
+            "AGEIMMIG",
+            "EDSCOR50",
+            "OCCSCORE",
+            "PRESGL",
+            "INCWAGE"
+        ],
+        "line": [
+            "AGE",
+            "FAMSIZE",
+            "SINCEIMMIG",
+            "AGEIMMIG",
+            "EDSCOR50",
+            "OCCSCORE",
+            "PRESGL",
+            "INCWAGE"
+        ],
+        "line_count": [
+            "OCC1950",
+            "IND1950"
+        ],
+        "area": [
+            "OCC1950",
+            "IND1950"
+        ]
+    },
+    "filters": {
+        "YEAR": [],
+        "SERIAL": [],
+        "PERNUM": [],
+        "SEX": [
+            "YEAR",
+            "RACE",
+            "LIT",
+            "SCHOOL"
+        ],
+        "RACE": [
+            "YEAR",
+            "SEX",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL"
+        ],
+        "HISPAN": [
+            "YEAR",
+            "SEX",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL"
+        ],
+        "AGE": [
+            "YEAR",
+            "SEX",
+            "RACE"
+        ],
+        "RELATE": [],
+        "MARST": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN"
+        ],
+        "FAMUNIT": [],
+        "FAMSIZE": [
+            "YEAR",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN"
+        ],
+        "BPL": [
+            "YEAR",
+            "RACE"
+        ],
+        "MBPL": [
+            "YEAR",
+            "RACE"
+        ],
+        "FBPL": [
+            "YEAR",
+            "RACE"
+        ],
+        "NATIVITY": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "LIT",
+            "SCHOOL",
+            "OCC1950",
+            "IND1950"
+        ],
+        "CITIZEN": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "LIT",
+            "SCHOOL",
+            "OCC1950",
+            "IND1950"
+        ],
+        "SINCEIMMIG": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL"
+        ],
+        "AGEIMMIG": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN"
+        ],
+        "LIT": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "MARST",
+            "NATIVITY",
+            "CITIZEN",
+            "SCHOOL",
+            "OCC1950",
+            "IND1950"
+        ],
+        "SCHOOL": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "MARST",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "OCC1950",
+            "IND1950"
+        ],
+        "EDSCOR50": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "OCC1950",
+            "IND1950"
+        ],
+        "OCC1950": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "LABFORCE",
+            "EMPSTAT"
+        ],
+        "OCCSCORE": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "LABFORCE",
+            "EMPSTAT",
+            "OCC1950",
+            "IND1950"
+        ],
+        "PRESGL": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "LABFORCE",
+            "EMPSTAT",
+            "OCC1950",
+            "IND1950"
+        ],
+        "IND1950": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "LABFORCE",
+            "EMPSTAT"
+        ],
+        "LABFORCE": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "LABFORCE",
+            "OCC1950",
+            "IND1950"
+        ],
+        "EMPSTAT": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "EMPSTAT",
+            "OCC1950",
+            "IND1950"
+        ],
+        "INCWAGE": [
+            "YEAR",
+            "SEX",
+            "RACE",
+            "NATIVITY",
+            "CITIZEN",
+            "LIT",
+            "SCHOOL",
+            "LABFORCE",
+            "EMPSTAT",
+            "OCC1950",
+            "IND1950"
+        ]
+    }
+}

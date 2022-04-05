@@ -1,18 +1,20 @@
 import numpy as np
 import pandas as pd
-from sanic import Sanic
-from sanic.response import json
+import json
+import sanic
 
 DATA = pd.read_parquet('data/ipums_full_count_nyc_census_coded_20210801.parquet')
 DATA['SINCEIMMIG'] = DATA['YEAR'] - DATA['YRIMMIG']
-DATA['AGEIMMIG'] = DATA['AGE'] + DATA['YEAR'] - DATA['YRIMMIG']
+DATA['AGEIMMIG'] = DATA['AGE'] - DATA['YEAR'] + DATA['YRIMMIG']
+with open('constrains.json', 'r') as f:
+    CONST = json.load(f)
 
-app = Sanic("HRLInteractivePortal")
+app = sanic.Sanic("HRLInteractivePortal")
 
 
 @app.get("/")
 async def hello_world(request):
-    return json({"Hello": "world."})
+    return sanic.response.json({"Hello": "world."})
 
 
 @app.get("/card")
@@ -24,9 +26,10 @@ async def car(request):
     """
     x = request.args.get('x')
     if not x:
-        return json([], status=400)
+        return sanic.response.json([], status=400)
     x = x.upper()
-    return json(DATA[x].unique().tolist())
+    return sanic.response.json(DATA[x].unique().tolist())
+
 
 @app.get("/bar")
 async def bar(request):
@@ -42,15 +45,19 @@ async def bar(request):
     """
     x = request.args.get('x')
     if not x:
-        return json({}, status=400)
+        return sanic.response.json({}, status=400)
     x = x.upper()
+    if x not in CONST['variables']['bar']:
+        return sanic.response.json({}, status=400)
     group = request.args.get('group')
     if not group:
         values, counts = np.unique(DATA[x].values, return_counts=True)
         values = values.tolist()
         counts = counts.tolist()
-        return json({'all': {'x': values, 'y': counts}})
+        return sanic.response.json({'all': {'x': values, 'y': counts}})
     group = group.upper()
+    if group not in CONST['filters'][x]:
+        return sanic.response.json({}, status=400)
     response = {}
     for g in np.unique(DATA[group].values):
         subdf = DATA[DATA[group] == g]
@@ -58,4 +65,4 @@ async def bar(request):
         values = values.tolist()
         counts = counts.tolist()
         response[g] = {'x': values, 'y': counts}
-    return json(response)
+    return sanic.response.json(response)
