@@ -68,3 +68,16 @@ async def bar(request):
         counts = counts.tolist()
         response[g] = {'x': values, 'y': counts}
     return json(response)
+
+
+@app.get("/graphTypes")
+async def graph_types(request):
+    """
+    graph types
+    :return:[
+             {id: 0, name: "Bar Chart", "route":"bar"},
+             {id: 1, ...},
+            ...
+            ]
+    """
+    return json([{"id":"0","name":"Bar Chart","route":"bar"}])
