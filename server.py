@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import json
 import sanic
+from sanic_cors import CORS
 
 DATA = pd.read_parquet('data/ipums_full_count_nyc_census_coded_20210801.parquet')
 DATA['SINCEIMMIG'] = DATA['YEAR'] - DATA['YRIMMIG']
@@ -10,15 +11,23 @@ with open('constrains.json', 'r') as f:
     CONST = json.load(f)
 
 app = sanic.Sanic("HRLInteractivePortal")
-
+CORS(app)
 
 @app.get("/")
 async def hello_world(request):
     return sanic.response.json({"Hello": "world."})
 
 
+@app.get('/columns')
+async def columns(request):
+    """
+    available columns
+    :return: [col_1, col_2, ..., col_n]
+    """
+    return sanic.response.json(DATA.columns.values.tolist())
+
 @app.get("/card")
-async def car(request):
+async def card(request):
     """
     cardinality
     :param request: x, variable to return cardinality
@@ -66,3 +75,16 @@ async def bar(request):
         counts = counts.tolist()
         response[g] = {'x': values, 'y': counts}
     return sanic.response.json(response)
+
+
+@app.get("/graphTypes")
+async def graph_types(request):
+    """
+    graph types
+    :return:[
+             {id: 0, name: "Bar Chart", "route":"bar"},
+             {id: 1, ...},
+            ...
+            ]
+    """
+    return sanic.response.json([{"id":"0","name":"Bar Chart","route":"bar"}])

@@ -1,4 +1,5 @@
 numpy
 pandas
 sanic
+sanic_cors
 pyarrow
