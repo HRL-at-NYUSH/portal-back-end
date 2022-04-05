@@ -47,7 +47,7 @@ async def bar(request):
     :param request: x, variable on the x-axis
     :param request: group, variable on which x is grouped (default 'all')
     :return:{'group1':
-                {x: [], count: []},
+                {"x": [x_0, x_1, ...], "y": [count(x_0; group1), count(x_1; group1), ...]},
             'group2': {...}
             ...
             }
