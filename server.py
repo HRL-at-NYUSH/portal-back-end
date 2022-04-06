@@ -24,6 +24,7 @@ async def variable_dictionary(request):
     """
     variable dictionary
     :param request: variables, names of variables that need to query
+            "YEAR, SEX, ..."
     :return: {"var1":
                 {name: "...",
                 description: "...",
