@@ -9,6 +9,8 @@ DATA['SINCEIMMIG'] = DATA['YEAR'] - DATA['YRIMMIG']
 DATA['AGEIMMIG'] = DATA['AGE'] - DATA['YEAR'] + DATA['YRIMMIG']
 with open('constrains.json', 'r') as f:
     CONST = json.load(f)
+with open('variable_dictionary.json','r') as f:
+    VAR_DIC = json.load(f)
 
 app = sanic.Sanic("HRLInteractivePortal")
 CORS(app)
@@ -16,6 +18,33 @@ CORS(app)
 @app.get("/")
 async def hello_world(request):
     return sanic.response.json({"Hello": "world."})
+
+@app.get("/variable-dictionary")
+async def variable_dictionary(request):
+    """
+    variable dictionary
+    :param request: variables, names of variables that need to query
+    :return: {"var1":
+                {name: "...",
+                description: "...",
+                "codes":{
+                    "1": "..."
+                    }
+                },
+                ...
+            }
+    """
+    vars = request.args.get('variables')
+    if not vars:
+        return sanic.response.json(VAR_DIC)
+   
+    res = {}
+    vars = vars.split(",")
+    for var in vars:
+        if var in VAR_DIC.keys():
+            res[var] = VAR_DIC[var]
+
+    return sanic.response.json(res)
 
 
 @app.get('/columns')
