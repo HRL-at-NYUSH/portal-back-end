@@ -106,7 +106,7 @@ async def bar(request):
     return sanic.response.json(response)
 
 
-@app.get("/graphTypes")
+@app.get("/graph-types")
 async def graph_types(request):
     """
     graph types
