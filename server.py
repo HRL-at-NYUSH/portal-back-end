@@ -37,7 +37,7 @@ async def card(request):
     if not x:
         return sanic.response.json([], status=400)
     x = x.upper()
-    return sanic.response.json(DATA[x].unique().tolist())
+    return sanic.response.json(list(sorted(DATA[x].unique().tolist())))
 
 
 @app.get("/bar")
