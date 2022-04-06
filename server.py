@@ -65,7 +65,7 @@ async def bar(request):
         counts = counts.tolist()
         return sanic.response.json({'all': {'x': values, 'y': counts}})
     group = group.upper()
-    if group not in CONST['filters'][x]:
+    if group not in CONST['filters'].get(x, []):
         return sanic.response.json({}, status=400)
     response = {}
     for g in np.unique(DATA[group].values):
