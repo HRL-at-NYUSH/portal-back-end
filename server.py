@@ -55,7 +55,7 @@ async def variable_dictionary(request):
 async def columns(request):
     """
     available columns
-    :return: [col_1, col_2, ..., col_n]
+    :return: [col_0, col_1, ...]
     """
     return sanic.response.json(DATA.columns.values.tolist())
 
@@ -65,7 +65,7 @@ async def card(request):
     """
     cardinality
     :param request: x, variable to return cardinality
-    :return: [x_1, x_2, ..., x_n]
+    :return: [x_0, x_1, ...]
     """
     x = request.args.get('x')
     if not x:
