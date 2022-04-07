@@ -80,9 +80,9 @@ async def bar(request):
     bar chart
     :param request: x, variable on the x-axis
     :param request: group, variable on which x is grouped (default 'all')
-    :return:{group1:
-                {"x": [x_0, x_1, ...], "y": [count(x_0; group1), count(x_1; group1), ...]},
-            group2: {...}
+    :return:{group0:
+                {"x": [x_0, x_1, ...], "y": [count(x_0; group0), count(x_1; group0), ...]},
+            group1: {...}
             ...
             }
     """
