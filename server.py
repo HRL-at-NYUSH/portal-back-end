@@ -1,6 +1,7 @@
+import json
+
 import numpy as np
 import pandas as pd
-import json
 import sanic
 from sanic_cors import CORS
 
@@ -9,15 +10,17 @@ DATA['SINCEIMMIG'] = DATA['YEAR'] - DATA['YRIMMIG']
 DATA['AGEIMMIG'] = DATA['AGE'] - DATA['YEAR'] + DATA['YRIMMIG']
 with open('constrains.json', 'r') as f:
     CONST = json.load(f)
-with open('variable_dictionary.json','r') as f:
+with open('variable_dictionary.json', 'r') as f:
     VAR_DIC = json.load(f)
 
 app = sanic.Sanic("HRLInteractivePortal")
 CORS(app)
 
+
 @app.get("/")
 async def hello_world(request):
     return sanic.response.json({"Hello": "world."})
+
 
 @app.get("/variable-dictionary")
 async def variable_dictionary(request):
@@ -38,7 +41,7 @@ async def variable_dictionary(request):
     vars = request.args.get('variables')
     if not vars:
         return sanic.response.json(VAR_DIC)
-   
+
     res = {}
     vars = vars.split(",")
     for var in vars:
@@ -55,6 +58,7 @@ async def columns(request):
     :return: [col_1, col_2, ..., col_n]
     """
     return sanic.response.json(DATA.columns.values.tolist())
+
 
 @app.get("/card")
 async def card(request):
@@ -76,9 +80,9 @@ async def bar(request):
     bar chart
     :param request: x, variable on the x-axis
     :param request: group, variable on which x is grouped (default 'all')
-    :return:{'group1':
+    :return:{group1:
                 {"x": [x_0, x_1, ...], "y": [count(x_0; group1), count(x_1; group1), ...]},
-            'group2': {...}
+            group2: {...}
             ...
             }
     """
@@ -98,12 +102,10 @@ async def bar(request):
     if group not in CONST['filters'].get(x, []):
         return sanic.response.json({}, status=400)
     response = {}
-    for g in np.unique(DATA[group].values):
-        subdf = DATA[DATA[group] == g]
-        values, counts = np.unique(subdf[x].values, return_counts=True)
-        values = values.tolist()
-        counts = counts.tolist()
-        response[g] = {'x': values, 'y': counts}
+    groups = DATA.groupby([group, x]).size()
+    for g in groups.index.get_level_values(0).unique():
+        subdf = groups[g]
+        response[g] = {"x": subdf.index.values.tolist(), "y": subdf.values.tolist()}
     return sanic.response.json(response)
 
 
@@ -117,4 +119,4 @@ async def graph_types(request):
             ...
             ]
     """
-    return sanic.response.json([{"id":"0","name":"Bar Chart","route":"bar"}])
+    return sanic.response.json([{"id": "0", "name": "Bar Chart", "route": "bar"}])
