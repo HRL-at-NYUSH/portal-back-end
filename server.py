@@ -4,12 +4,15 @@ import numpy as np
 import pandas as pd
 import sanic
 from sanic_cors import CORS
+from utils import remove_oov
 
 DATA = pd.read_parquet('data/ipums_full_count_nyc_census_coded_20210801.parquet')
 DATA['SINCEIMMIG'] = DATA['YEAR'] - DATA['YRIMMIG']
 DATA['AGEIMMIG'] = DATA['AGE'] - DATA['YEAR'] + DATA['YRIMMIG']
+OOV = ['HISPAN', 'FAMUNIT', 'SCHOOL', 'LABFORCE']
 with open('constrains.json', 'r') as f:
     CONST = json.load(f)
+CONST = remove_oov(CONST, OOV)
 with open('variable_dictionary.json', 'r') as f:
     VAR_DIC = json.load(f)
 
@@ -77,14 +80,9 @@ async def card(request):
 @app.get("/bar")
 async def bar(request):
     """
-    bar chart
-    :param request: x, variable on the x-axis
-    :param request: group, variable on which x is grouped (default 'all')
-    :return:{group0:
-                {"x": [x_0, x_1, ..., x_{n_cat-1}], "y": [count(x_0; group0), count(x_1; group0), ..., count(x_{n_cat-1}; group0)]},
-            group1: {...}
-            ...
-            }
+    bar chart :param request: x, variable on the x-axis :param request: group, variable on which x is grouped (
+    default 'all') :return:{group0: {"x": [x_0, x_1, ..., x_{n_cat-1}], "y": [count(x_0; group0), count(x_1; group0),
+    ..., count(x_{n_cat-1}; group0)]}, group1: {...} ... }
     """
     x = request.args.get('x')
     if not x:
