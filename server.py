@@ -112,7 +112,7 @@ async def bar(request):
 @app.get("/line")
 async def line(request):
     """
-    line chart
+    line chart (with mean)
     :param request: y, variable on the y-axis (x-axis is YEAR)
     :param request: group, variable on which y is grouped (default 'all')
     :return:{group0:
