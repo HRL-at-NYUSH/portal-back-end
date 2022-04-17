@@ -41,13 +41,13 @@ async def variable_dictionary(request):
                 ...
             }
     """
-    vars = request.args.get('variables')
-    if not vars:
+    variables = request.args.get('variables')
+    if not variables:
         return sanic.response.json(VAR_DIC)
 
     res = {}
-    vars = vars.split(",")
-    for var in vars:
+    variables = variables.split(",")
+    for var in variables:
         if var in VAR_DIC.keys():
             res[var] = VAR_DIC[var]
 
