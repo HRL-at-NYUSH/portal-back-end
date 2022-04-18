@@ -21,21 +21,26 @@ class HRLDataLoader:
         return group_name.upper() in self.const['filters'].get(var_name, [])
 
     def _parse_args(self, graph_name, args):
-        var = args.get('var', [])
+        if 'var' not in args:
+            return None, None, None
+        var = args['var']
         if len(var) != 1:
             return None, None, None
         var = var[0]
         if not self._check_var(graph_name, var):
             return None, None, None
         var = var.upper()
-        group = args.get('group', [])
-        if len(group) != 1 or not self._check_group(var, group[0]):
+        if 'group' not in args:
             group = None
         else:
-            group = group[0].upper()
+            group = args['group']
+            if len(group) != 1 or not self._check_group(var, group[0]):
+                group = None
+            else:
+                group = group[0].upper()
         filters = {}
         for fil, fvs in args.items():
-            if fil.upper() not in self.const['filters'][var]:
+            if fil.upper() not in self.const['filters'][var] + [var]:
                 continue
             filters[fil.upper()] = []
             for fv in fvs:
@@ -49,12 +54,13 @@ class HRLDataLoader:
         if not filters:
             return self.data
         df = self.data
-        for fil, fvs in filter.items():
+        for fil, fvs in filters.items():
             df = df[df[fil].isin(fvs)]
         return df.reset_index(drop=True)
 
     def bar(self, args):
-        var, group, filters = self._parse_args(args)
+        var, group, filters = self._parse_args('bar', args)
+        print('bar chart: var, group, filters', var, group, filters)
         if not var:
             return {}
         df = self._filter_by_dict(filters)
