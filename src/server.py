@@ -89,8 +89,9 @@ async def bar(request):
 async def line(request):
     """
     line chart (with mean)
-    :param request: y, variable on the y-axis (x-axis is YEAR)
+    :param request: var, variable on the y-axis (x-axis is YEAR)
     :param request: group, variable on which y is grouped (default 'all')
+    :param request: *filters, filters on which y is filtered
     :return:{group0:
                 {"x": [year_0, year_1, ..., y_{n_year-1}], "y": [y_0.mean, y_1.mean, ..., y_{n_year-1}.mean]},
             group1: {...}
