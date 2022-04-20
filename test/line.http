@@ -1,0 +1,16 @@
+GET http://127.0.0.1:8000/line?var=famsize&group=race&nativity=1&nativity=4
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/line?var=age&group=sex
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/line?var=age&group=year
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/line?var=age
+Accept: application/json
+
+###
