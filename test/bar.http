@@ -1,0 +1,24 @@
+GET http://127.0.0.1:8000/bar?var=nativity&group=sex&year=1910,1950&year=1850&race=1&race=4&lit=2,6
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/bar?var=age&age=20,30
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/bar?var=age&group=race&sex=1
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/bar?var=age&group=race&sex=0
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/bar?var=age&group=race
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/bar?var=sex
+Accept: application/json
+
+###
