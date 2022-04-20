@@ -77,7 +77,7 @@ class HRLDataLoader:
         return re
 
     def line(self, args):
-        var, group, filters = self._parse_args('bar', args)
+        var, group, filters = self._parse_args('line', args)
         print('line chart: var, group, filters', var, group, filters)
         if not var:
             return {}
