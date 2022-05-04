@@ -83,10 +83,13 @@ class HRLDataLoader:
             return {}
         df = self._filter_by_dict(filters)
         if not group:
-            means = df.groupby('YEAR')[var].mean()
+            means = df[[var, 'YEAR']].groupby('YEAR')[var].mean()
             return {'all': {'x': means.index.tolist(), 'y': means.tolist()}}
         re = {}
-        groups = df.groupby([group, 'YEAR'])[var].mean()
+        if group == 'YEAR':
+            groups = df[[var, 'YEAR']].groupby([group, 'YEAR'])[var].mean()
+        else:
+            groups = df[[var, group, 'YEAR']].groupby([group, 'YEAR'])[var].mean()
         for g in groups.index.get_level_values(0).unique():
             means = groups[g]
             re[g] = {'x': means.index.tolist(), 'y': means.tolist()}
