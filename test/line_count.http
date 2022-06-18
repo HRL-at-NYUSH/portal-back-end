@@ -1,0 +1,16 @@
+GET http://127.0.0.1:8000/line_count?var=occ1950&group=race&nativity=1&nativity=4&val=0
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/line_count?var=ind1950&val=105
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/line_count?var=ind1950&group=year&val=105
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/line_count?var=ind1950&val=105
+Accept: application/json
+
+###

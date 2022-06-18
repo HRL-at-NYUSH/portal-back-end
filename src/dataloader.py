@@ -23,12 +23,15 @@ class HRLDataLoader:
 
     def _parse_args(self, graph_name, args, val=False):
         if 'var' not in args:
+            print("'var' not in args")
             return None, None, None
         var = args['var']
         if len(var) != 1:
+            print("len(var) != 1")
             return None, None, None
         var = var[0]
         if not self._check_var(graph_name, var):
+            print("graph_name and var does not match")
             return None, None, None
         var = var.upper()
         if 'group' not in args:
@@ -50,10 +53,11 @@ class HRLDataLoader:
         if not filters:
             filters = None
         if val:
-            if len(args.get('val', [])) == 1:
+            if len(args.getlist('val', [])) == 1:
                 val = int(args['val'][0])
                 return var, group, filters, val
             else:
+                print("args.val misformat", args.get('val', []))
                 return None, None, None
         return var, group, filters
 
@@ -104,10 +108,9 @@ class HRLDataLoader:
 
     def line_count(self, args):
         vgfv = self._parse_args('line_count', args, val=True)
-        print(vgfv)
+        print('line_count chart: var, group, filters val', vgfv)
         var = vgfv[0]
         if not var:
-            print('line_count chart: var, group, filters val', None, None, None, None)
             return {}
         var, group, filters, val = vgfv
         print('line_count chart: var, group, filters val', var, group, filters, val)
