@@ -143,3 +143,28 @@ async def graph_types(request):
             ]
     """
     return json([{"id": "0", "name": "Bar Chart", "route": "bar"},{"id": "1", "name": "Line Chart", "route": "line"},{"id": "2", "name": "Line Count", "route": "line_count"},{"id": "3", "name": "Area Graph", "route": "area"}])
+
+
+@app.get("/constrains")
+async def constrains(request):
+    """
+    variable constrains for graph type or filter constrains for a variable
+    :param request: variable, name of variables that need to query the filter
+            "YEAR"
+            OR      variables, names of variables that need to query
+            "YEAR, SEX, ..."
+    :return: ["VAR_NAME1", "VAR_NAME2", ...]
+    """
+    variable = request.args.get('variable')
+    graph_type = request.args.get('graphType')
+
+    # if requesting for filter constrains for a variable
+    if variable:
+            return json(db.const['filters'][variable])
+
+    # if requesting for graph variable for a graph type
+    if graph_type:
+        return json(db.const['variables'][graph_type])
+
+  
+    return json(db.const)
