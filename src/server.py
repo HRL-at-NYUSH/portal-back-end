@@ -101,6 +101,37 @@ async def line(request):
     return json(db.line(request.args))
 
 
+@app.get("/line_count")
+async def line_count(request):
+    """
+    line chart (with count) for a specific value of a variable
+    :param request: var, variable on the y-axis (x-axis is YEAR)
+    :param request: group, variable on which y is grouped (default 'all')
+    :param request: *filters, filters on which y is filtered
+    :param request: val, value that `var` equals to
+    :return:{group0:
+                {"x": [year_0, year_1, ..., y_{n_year-1}], "y": [y_0.count, y_1.count, ..., y_{n_year-1}.count]},
+            group1: {...}
+            ...
+            }
+    """
+    return json(db.line_count(request.args))
+
+@app.get("/area")
+async def area(request):
+    """
+    area chart (with count) for all possible of a variable, as an effect, group is disabled
+    :param request: var, variable on the y-axis (x-axis is YEAR)
+    :param request: *filters, filters on which y is filtered
+    :return:{val0:
+                {"x": [year_0, year_1, ..., y_{n_year-1}], "y": [y_0.count, y_1.count, ..., y_{n_year-1}.count]},
+            val1: {...}
+            ...
+            }
+    """
+    return json(db.area(request.args))
+
+
 @app.get("/graph-types")
 async def graph_types(request):
     """

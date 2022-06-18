@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from utils import remove_oov, read_json, parse_digital_string
 
+
 class HRLDataLoader:
     def __init__(self, data_path, const_path, oov_path, vdict_path):
         self.data = pd.read_parquet(data_path)
@@ -20,7 +21,7 @@ class HRLDataLoader:
             return False
         return group_name.upper() in self.const['filters'].get(var_name, [])
 
-    def _parse_args(self, graph_name, args):
+    def _parse_args(self, graph_name, args, val=False):
         if 'var' not in args:
             return None, None, None
         var = args['var']
@@ -48,6 +49,12 @@ class HRLDataLoader:
             filters[fil.upper()] = list(set(filters[fil.upper()]))
         if not filters:
             filters = None
+        if val:
+            if len(args.get('val', [])) == 1:
+                val = int(args['val'][0])
+                return var, group, filters, val
+            else:
+                return None, None, None
         return var, group, filters
 
     def _filter_by_dict(self, filters):
@@ -95,12 +102,48 @@ class HRLDataLoader:
             re[g] = {'x': means.index.tolist(), 'y': means.tolist()}
         return re
 
+    def line_count(self, args):
+        vgfv = self._parse_args('line_count', args, val=True)
+        print(vgfv)
+        var = vgfv[0]
+        if not var:
+            print('line_count chart: var, group, filters val', None, None, None, None)
+            return {}
+        var, group, filters, val = vgfv
+        print('line_count chart: var, group, filters val', var, group, filters, val)
+        df = self._filter_by_dict(filters)
+        df = df[df[var]==val].reset_index(drop=True)
+        if not group:
+            counts = df[[var, 'YEAR']].groupby('YEAR')[var].count()
+            return {'all': {'x': counts.index.tolist(), 'y': counts.tolist()}}
+        re = {}
+        if group == 'YEAR':
+            groups = df[[var, 'YEAR']].groupby([group, 'YEAR'])[var].count()
+        else:
+            groups = df[[var, group, 'YEAR']].groupby([group, 'YEAR'])[var].count()
+        for g in groups.index.get_level_values(0).unique():
+            counts = groups[g]
+            re[g] = {'x': counts.index.tolist(), 'y': counts.tolist()}
+        return re
 
-
+    def area(self, args):
+        var, _, filters = self._parse_args('area', args)
+        print('area chart: var, filters', var, filters)
+        if not var:
+            return {}
+        df = self._filter_by_dict(filters)
+        re = {}
+        groups = df[[var, 'YEAR']].groupby([var, 'YEAR'])[var].count()
+        for g in groups.index.get_level_values(0).unique():
+            counts = groups[g]
+            re[g] = {'x': counts.index.tolist(), 'y': counts.tolist()}
+        return re
 
 
 if __name__ == "__main__":
-    dataloader = HRLDataLoader('../data/ipums_full_count_nyc_census_coded_20210801.parquet', '../metadata/constrains.json', '../metadata/oov.json', '../metadata/variable_dictionary.json')
+    dataloader = HRLDataLoader('../data/ipums_full_count_nyc_census_coded_20210801.parquet',
+                               '../metadata/constrains.json', '../metadata/oov.json',
+                               '../metadata/variable_dictionary.json')
     tests = [
         {},
         {'var': ['serial']},
