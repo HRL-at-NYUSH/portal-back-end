@@ -1,0 +1,12 @@
+GET http://127.0.0.1:8000/area?var=occ1950&nativity=1&nativity=4
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/area?var=ind1950
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/area?var=ind1950
+Accept: application/json
+
+###
