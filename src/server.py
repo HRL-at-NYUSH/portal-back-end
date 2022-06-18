@@ -142,4 +142,4 @@ async def graph_types(request):
             ...
             ]
     """
-    return json([{"id": "0", "name": "Bar Chart", "route": "bar"}])
+    return json([{"id": "0", "name": "Bar Chart", "route": "bar"},{"id": "1", "name": "Line Chart", "route": "line"},{"id": "2", "name": "Line Count", "route": "line_count"},{"id": "3", "name": "Area Graph", "route": "area"}])
