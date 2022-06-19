@@ -7,7 +7,7 @@
 4. Start server: `sanic server.app`. Use `--dev` for hot reloading.
 
 ## Features
-1. Grouping by multiple variables.
+1. Grouping by single variable.
 2. Filtering by multiple ranges.
 
 ## Charts
