@@ -1,6 +1,7 @@
 import sanic
 from sanic.response import json
 from sanic_cors import CORS
+from sanic_compress import Compress
 from dataloader import HRLDataLoader
 db = HRLDataLoader(
     data_path='../data/ipums_full_count_nyc_census_coded_20210801.parquet',
@@ -11,6 +12,7 @@ db = HRLDataLoader(
 
 app = sanic.Sanic("HRLInteractivePortal")
 CORS(app)
+Compress(app)
 
 
 @app.get("/")
@@ -130,6 +132,21 @@ async def area(request):
             }
     """
     return json(db.area(request.args))
+
+@app.get("/histogram")
+async def histogram(request):
+    """
+    histogram for a single variable
+    :param request: var, variable whose data points are returned
+    :param group: variable on which var are grouped
+    :param request: *filters, filters on which var is filtered
+    :return:{group0:
+                {"x": [x0, x1, ..., xn]},
+            group1: {...}
+            ...
+            }
+    """
+    return json(db.histogram(request.args))
 
 
 @app.get("/graph-types")

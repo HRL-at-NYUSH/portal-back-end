@@ -3,3 +3,4 @@ pandas
 sanic
 sanic_cors
 pyarrow
+sanic_compress

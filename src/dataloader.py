@@ -142,6 +142,19 @@ class HRLDataLoader:
             re[g] = {'x': counts.index.tolist(), 'y': counts.tolist()}
         return re
 
+    def histogram(self, args):
+        var, group, filters = self._parse_args('histogram', args)
+        print('histogram: var, group, filters', var, group, filters)
+        if not var:
+            return {}
+        df = self._filter_by_dict(filters)
+        if not group:
+            return {'all': {'x': df[var].tolist()}}
+        re = {}
+        for g in df[group].unique():
+            re[g] = {'x': df[df[group]==g][var].tolist()}
+        return re
+
 
 if __name__ == "__main__":
     dataloader = HRLDataLoader('../data/ipums_full_count_nyc_census_coded_20210801.parquet',
