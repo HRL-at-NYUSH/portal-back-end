@@ -28,7 +28,7 @@ def parse_digital_string(s):
     if len(sp) == 2:
         lo, hi = sp[0], sp[1]
         if check_int(lo) and check_int(hi) and int(lo) < int(hi):
-            return list(range(int(lo), int(hi)))
+            return list(range(int(lo), int(hi)+1))
     return []
 
 if __name__ == "__main__":
