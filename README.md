@@ -5,7 +5,7 @@ First, you need to download [data](https://drive.google.com/file/d/1BjKVB6EEEqoD
 
 ### Without docker
 1. Install dependencies: `pip install -r requirements.txt`.
-2. Start server: `sanic server.app`. Use `--dev` for debug purpose.
+2. Start server: `sanic server.app`. Use `--dev` for hot reloading. The default port is 8000.
 
 ### With docker
 1. Build image with `docker build -t portal-back-end .`.
