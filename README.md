@@ -8,7 +8,7 @@ First, you need to download [data](https://drive.google.com/file/d/1BjKVB6EEEqoD
 2. Start server: `sanic server.app`. Use `--dev` for debug purpose.
 
 ### With docker
-1. Build image with `docker build -t portal-back-end`.
+1. Build image with `docker build -t portal-back-end .`.
 2. Start the service with `docker run -p 8000:8000 portal-back-end`.
 
 ## Features
