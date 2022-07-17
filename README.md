@@ -1,4 +1,4 @@
-Interactive Portal Backend
+# HRL Lab Interactive Portal Backend
 
 ## How to launch the backend
 First, you need to download [data](https://drive.google.com/file/d/1BjKVB6EEEqoDzM-IX-P_FX35Bmb2Ye9w/view?usp=sharing) and put it under `data/`.
